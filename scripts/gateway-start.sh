@@ -1,0 +1,1 @@
+set -e; for v in FIRECRAWL_API_KEY BULL_AUTH_KEY; do eval "x=\${$v:-}"; [ ${#x} -ge 20 ] || { echo "$v must be set (20+ characters)" >&2; exit 1; }; done; [ -n "${FIRECRAWL_API_URL:-}" ] || { echo "FIRECRAWL_API_URL is not set" >&2; exit 1; }; echo <base64 of ../Caddyfile> | base64 -d > /etc/caddy/Caddyfile; exec caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
